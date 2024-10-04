@@ -9,7 +9,7 @@ import SwiftUI
 
 enum focusedFields{
     case email
-    case password
+    case passwordd
 }
 
 struct loginView: View {
@@ -36,59 +36,15 @@ struct loginView: View {
                 Text("Welcome back\n you have been missed!")
                     .font(.system(size: 16, weight: .medium))
                     .multilineTextAlignment(.center)
+                    .lineLimit(2)
                     .foregroundStyle(.black)
                 
                 Spacer()
                 
-                VStack(alignment: .leading, spacing: 4) {
-                    // TextField for Email
-                    TextField("Email", text: $email)
-                        .focused($focusedTextField, equals: .email)
-                        .padding()
-                        .background(Color.secondaryBlue)
-                        .cornerRadius(12.0)
-                        .background(
-                            RoundedRectangle(cornerRadius: 12)
-                                .stroke(!isValidEmail ? .red : focusedTextField == .email ? Color.spotifyIndigo : Color.white, lineWidth: 2)
-                        )
-                        .padding(.horizontal, 25)
-                        .onChange(of: email) { oldValue, newValue in
-                            isValidEmail = Validator.validateEmail(newValue)
-                        }
+                emailTextFieldView(email: $email, isValidEmail: $isValidEmail)
 
-                    // Label for invalid email
-                    if !isValidEmail {
-                        Text("Invalid Email")
-                            .foregroundColor(.red)
-                            .padding(.horizontal, 28) // Matches the padding of TextField
-                    }
-                }
-                
-                
-                
-                VStack(alignment: .leading, spacing: 4) {
-                    SecureField("Password", text: $password)
-                        .focused($focusedTextField, equals: .password)
-                        .padding()
-                        .background(.secondaryBlue)
-                        .cornerRadius(12.0)
-                        .background(
-                            RoundedRectangle(cornerRadius: 12)
-                                .stroke(!isValidPassword ? .red : focusedTextField == .password ? Color.spotifyIndigo : Color.white, lineWidth: 2)
-                        )
-                        .padding(.horizontal, 25)
-                        .onChange(of: password) { oldValue, newValue in
-                            isValidPassword = Validator.validatePassword(newValue)
-                        }
-
-                    // Label for invalid email
-                    if !isValidPassword {
-                        Text("Invalid Password")
-                            .foregroundColor(.red)
-                            .padding(.horizontal, 28) // Matches the padding of TextField
-                    }
-                }
-                .padding(.bottom, 15)
+               passwordTextFieldView(password: $password, isValidPassword: $isValidPassword, placeholder: "Password")
+                    .padding(.bottom, 15)
                 
                 HStack{
                     Spacer()
@@ -102,19 +58,9 @@ struct loginView: View {
                 .padding(.bottom, 25)
                 
        
-                NavigationLink(destination: registerView()) {
-                    Text("Login")
-                        .font(.system(size: 20, weight: .semibold))
-                        .foregroundStyle(.white)
-                }
-                .frame(maxWidth: .infinity, minHeight: 60)
-                .background(.spotifyIndigo)
-                .clipShape(.buttonBorder)
-                .shadow(color: .indigo.opacity(0.5), radius: 2, x: 2, y: 2)
-                .padding(.horizontal, 25)
-                .opacity(canTapLogin ? 1.0 : 0.5)
-                .disabled(canTapLogin ? false : true)
-                .padding(.bottom, 20)
+                appButtonView(destination: registerView(),
+                              title: "Login",
+                              canTapLogin: canTapLogin)
                 
                 Text("Create Account")
                     .font(.system(size: 16, weight: .semibold))
@@ -142,12 +88,20 @@ struct loginView: View {
                 }
                 .padding(.horizontal)
               
-              bottomView()
+                socialView {
+                    print("apple tapped")
+                } facebookTapped: {
+                    print("fb tapped")
+                } googleTapped: {
+                    print("google tapped")
+                }
+
                 
                 Spacer()
                 
             }
         }
+        .toolbar(.hidden, for: .navigationBar)
     }
 }
 
@@ -155,37 +109,94 @@ struct loginView: View {
     loginView()
 }
 
-struct bottomView: View {
-    var body : some View {
-        HStack{
-            Button(action: {}, label: {
-                Image("apple-logo")
-                   // .font(.title3)
-                    .frame(width: 35, height: 35)
-                    .frame(width: 35, height: 35)
-                    .padding(5)
-                    .background(Color.secondaryBlue)
-                    .clipShape(Circle())
-            })
-            Button(action: {}, label: {
-                Image("facebook-logo")
-                   // .font(.title3)
-                    .frame(width: 35, height: 35)
-                    .frame(width: 35, height: 35)
-                    .padding(5)
-                    .background(Color.secondaryBlue)
-                    .clipShape(Circle())
-            })
-            Button(action: {}, label: {
-                Image("google-logo")
-                    .frame(width: 35, height: 35)
-                    .padding(5)
-                    .background(Color.secondaryBlue)
-                    .clipShape(Circle())
-                    
-            })
+
+struct emailTextFieldView: View {
+    
+    @Binding var email : String
+    @Binding var isValidEmail : Bool
+    @FocusState var focusedTextField : focusedFields?
+    
+    var body: some View {
+        VStack(alignment: .leading, spacing: 4) {
+            // TextField for Email
+            TextField("Email", text: $email)
+                .focused($focusedTextField, equals: .email)
+                .padding()
+                .background(Color.secondaryBlue)
+                .cornerRadius(12.0)
+                .background(
+                    RoundedRectangle(cornerRadius: 12)
+                        .stroke(!isValidEmail ? .red : focusedTextField == .email ? Color.spotifyIndigo : Color.white, lineWidth: 2)
+                )
+                .padding(.horizontal, 25)
+                .keyboardType(.emailAddress)
+                .onChange(of: email) { oldValue, newValue in
+                    isValidEmail = Validator.validateEmail(newValue)
+                }
+            
+            // Label for invalid email
+            if !isValidEmail {
+                Text("Invalid Email")
+                    .foregroundColor(.red)
+                    .padding(.horizontal, 28) // Matches the padding of TextField
+            }
+        }
+    }
+}
+
+struct passwordTextFieldView: View {
+    
+    @Binding var password : String
+    @Binding var isValidPassword : Bool
+    @FocusState var focusedTextField : focusedFields?
+    var placeholder : String = ""
+    
+    var body: some View {
+        VStack(alignment: .leading, spacing: 4) {
+            SecureField(placeholder, text: $password)
+                .focused($focusedTextField, equals: .passwordd)
+                .padding()
+                .background(.secondaryBlue)
+                .cornerRadius(12.0)
+                .background(
+                    RoundedRectangle(cornerRadius: 12)
+                        .stroke(!isValidPassword ? .red : focusedTextField == .passwordd ? Color.spotifyIndigo : Color.white, lineWidth: 2)
+                )
+                .padding(.horizontal, 25)
+                .onChange(of: password) { oldValue, newValue in
+                    isValidPassword = Validator.validatePassword(newValue)
+                }
+            
+            // Label for invalid email
+            if !isValidPassword {
+                Text("Invalid Password")
+                    .foregroundColor(.red)
+                    .padding(.horizontal, 28) // Matches the padding of TextField
+            }
         }
         
-        .padding()
+    }
+}
+
+struct appButtonView<Destination: View>: View {
+    
+    var destination: Destination
+    var title : String = ""
+    var canTapLogin : Bool
+    
+    var body: some View {
+        NavigationLink(destination: destination) {
+            Text(title)
+                .font(.system(size: 20, weight: .semibold))
+                .foregroundStyle(.white)
+        }
+        .frame(maxWidth: .infinity, minHeight: 60)
+        .background(.spotifyIndigo)
+        .clipShape(.buttonBorder)
+        .shadow(color: .indigo.opacity(0.5), radius: 2, x: 2, y: 2)
+        .padding(.horizontal, 25)
+        .opacity(canTapLogin ? 1.0 : 0.5)
+        .disabled(canTapLogin ? false : true)
+        .padding(.bottom, 20)
     }
 }

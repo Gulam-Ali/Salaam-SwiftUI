@@ -15,6 +15,7 @@
 		EA1A94862CA9977F00A634C6 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = EA1A94852CA9977F00A634C6 /* Preview Assets.xcassets */; };
 		EA1A948D2CA9B70800A634C6 /* splashView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA1A948C2CA9B70800A634C6 /* splashView.swift */; };
 		EA1A948F2CA9BDB700A634C6 /* userView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA1A948E2CA9BDB700A634C6 /* userView.swift */; };
+		EAD4D8E22CB066C20055EF01 /* socialView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAD4D8E12CB066C20055EF01 /* socialView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -27,6 +28,7 @@
 		EA1A94852CA9977F00A634C6 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		EA1A948C2CA9B70800A634C6 /* splashView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = splashView.swift; sourceTree = "<group>"; };
 		EA1A948E2CA9BDB700A634C6 /* userView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = userView.swift; sourceTree = "<group>"; };
+		EAD4D8E12CB066C20055EF01 /* socialView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = socialView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -67,6 +69,7 @@
 				EA19C76F2CAEDCF70014542F /* loginView.swift */,
 				EA19C7712CAEDD810014542F /* registerView.swift */,
 				EA19C7732CAEE4DB0014542F /* validator.swift */,
+				EAD4D8E12CB066C20055EF01 /* socialView.swift */,
 			);
 			path = Salaam;
 			sourceTree = "<group>";
@@ -154,6 +157,7 @@
 				EA1A948F2CA9BDB700A634C6 /* userView.swift in Sources */,
 				EA19C7702CAEDCF70014542F /* loginView.swift in Sources */,
 				EA19C7742CAEE4DB0014542F /* validator.swift in Sources */,
+				EAD4D8E22CB066C20055EF01 /* socialView.swift in Sources */,
 				EA1A947F2CA9977E00A634C6 /* SalaamApp.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
