@@ -11,7 +11,14 @@ import SwiftUI
 struct SalaamApp: App {
     var body: some Scene {
         WindowGroup {
-            splashView()
+//            if let _ = UserStorage().userInfo{
+//                homeView()
+//            }else{
+//                welcomeView()
+//            }
+            welcomeView()
+            
         }
     }
+
 }

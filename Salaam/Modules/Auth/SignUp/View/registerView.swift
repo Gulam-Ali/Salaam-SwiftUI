@@ -35,18 +35,17 @@ struct registerView: View {
                 
                 Spacer()
                 
-                emailTextFieldView(email: $email, isValidEmail: $isValidEmail)
+//                emailTextFieldView(email: $email, isValidEmail: $isValidEmail)
+//
+//                passwordTextFieldView(password: $password, isValidPassword: $isValidPassword, placeholder: "Password")
+//                
+//                passwordTextFieldView(password: $password, isValidPassword: $isValidPassword, placeholder: "Confirm Password")
+//                     .padding(.bottom, 15)
 
-                passwordTextFieldView(password: $password, isValidPassword: $isValidPassword, placeholder: "Password")
                 
-                passwordTextFieldView(password: $password, isValidPassword: $isValidPassword, placeholder: "Confirm Password")
-                     .padding(.bottom, 15)
-
-                
-       
-                appButtonView(destination: registerView(),
-                              title: "Create Account",
-                              canTapLogin: canTapLogin)
+//                appButtonView(destination: registerView(),
+//                              title: "Create Account",
+//                              canTapLogin: canTapLogin)
                 
                 Text("Already have account")
                     .font(.system(size: 16, weight: .semibold))
